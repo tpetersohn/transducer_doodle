@@ -29,6 +29,3 @@ const concat      = (xs, x)     => xs.concat(x)
     , transduce   = (xf, rf, init, xs) => xs.reduce(xf(rf), init)
 
 console.log(transduce(xform,concat,[],Array.from({length:26}, (_,i) => String.fromCharCode(i + 97)).concat(Number(7))))
-
-test123 
-test456
