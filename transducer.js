@@ -21,12 +21,12 @@ const concat      = (xs, x)     => xs.concat(x)
     , toString    = (x)         => isNumber(x) ? x = String(x) : x
 
 
-    , identityTf  = (fn)        => (op) => (acc, x)    => {fn(x); return op(acc,x)}
-    , filterTf    = (p)         => (op) => (acc, x)   => p(x) ? op(acc, x) : op(acc, " ")
-    , mapTf       = (fn)        => (op) => (acc, x)   => op(acc, fn(x))
-    , applyTf     = (fn)        => (op) => (acc, xs)  => {return fn(op(acc, xs))}
+    , identityTf  = (fn)        => (rf) => (acc, x)   => {fn(x); return rf(acc,x)}
+    , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : op(acc, " ")
+    , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc, fn(x))
+    , applyTf     = (fn)        => (rf) => (acc, xs)  => {return fn(rf(acc, xs))}
 
-    , xform       = compose(applyTf(shuffleArray), mapTf(fillEmpty), filterTf(removeLower), mapTf(toUpper), mapTf(toString))
+    , xform       = compose(mapTf(fillEmpty), filterTf(removeLower), mapTf(toUpper), mapTf(toString), applyTf(shuffleArray))
     , transduce   = (xf, rf, init, xs) => xs.reduce(xf(rf), init)
 
 console.log(transduce(xform,concat,[],Array.from({length:26}, (_,i) => String.fromCharCode(i + 97)).concat(Number(7) )))
