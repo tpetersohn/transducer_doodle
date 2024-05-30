@@ -22,7 +22,7 @@ const concat      = (xs, x)     => xs.concat(x)
 
 
     , identityTf  = (fn)        => (rf) => (acc, x)   => {fn(x); return rf(acc,x)}
-    , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : op(acc, " ")
+    , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : rf(acc, " ")
     , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc, fn(x))
     , applyTf     = (fn)        => (rf) => (acc, xs)  => {return fn(rf(acc, xs))}
 
