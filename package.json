@@ -1,0 +1,25 @@
+{
+  "name": "transducer",
+  "version": "1.0.0",
+  "description": "unimportant doodle",
+  "main": "transducer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tpetersohn/unimportant-doodles.git"
+  },
+  "keywords": [
+    "javascript",
+    "functional",
+    "programming"
+  ],
+  "author": "Peter Thomas Petersohn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tpetersohn/unimportant-doodles/issues"
+  },
+  "homepage": "https://github.com/tpetersohn/unimportant-doodles#readme",
+  "type": "module"
+}
