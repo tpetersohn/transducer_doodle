@@ -26,7 +26,7 @@ const concat      = (xs, x)     => xs.concat(x)
 
     , tap         = (fn, msg)   => (rf) => (acc, x)   => {fn([...acc,x], msg); return rf(acc,x)}
     , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : rf(acc, " ")
-    , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc, fn(x))
+    , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc,fn(x))
     , applyTf     = (fn)        => (rf) => (acc, x)   => rf(fn(acc),x)
 
     , xform       = compose
