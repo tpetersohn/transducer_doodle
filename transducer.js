@@ -34,10 +34,13 @@ const concat      = (xs, x)     => xs.concat(x)
     , xform       = compose
 
                     (
-                      
-                      tap(console.log, "before tostring"),
+
+                      tap(console.log, "before toString"),
                       mapTf(toString),
+                      filterTf(isOdd),
+                      tap(console.log, "before uploOdd"),
                       mapTf(UpLoOdd), 
+                      tap(console.log, "before shuffle"),
                       applyTf(shuffleArray),
                       mapTf(fillEmpty),
          
