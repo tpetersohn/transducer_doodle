@@ -12,7 +12,7 @@ const shuffleArray = (arr) => {
   };
 
 const concat      = (xs, x)     => xs.concat(x)
-    , compose     = (...fns)    => (x) => fns.reduce((x,f) => f(x), x)
+    , compose     = (...fns)    => (x) => fns.reduceRight((x,f) => f(x), x)
 
     , isOdd       = (x)         => x % 2 !== 0
     , isEven      = (x)         => x % 2 == 0
@@ -26,7 +26,7 @@ const concat      = (xs, x)     => xs.concat(x)
     , toString    = (x)         => isNumber(x) ? x = String(x) : x
 
 
-    , tap         = (fn, msg)   => (rf) => (acc, x)   => {fn([...acc,x], msg); return rf(acc,x)}
+    , tap         = (fn, msg)   => (rf) => (acc, x)   => {if(acc.length>=26) {fn([...acc,x], msg)}; return rf(acc,x)}
     , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : rf(acc, " ")
     , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc,fn(x))
     , applyTf     = (fn)        => (rf) => (acc, x)   => fn(rf(acc,x))
@@ -34,13 +34,13 @@ const concat      = (xs, x)     => xs.concat(x)
     , xform       = compose
 
                     (
-
-                      mapTf(fillEmpty),
-                      filterTf(removeLower), 
+                      
+                      tap(console.log, "before tostring"),
+                      mapTf(toString),
                       mapTf(UpLoOdd), 
                       applyTf(shuffleArray),
-                      mapTf(toString),
-
+                      mapTf(fillEmpty),
+         
                     )
 
     , transduce   = (xf, rf, init, xs) => xs.reduce(xf(rf), init)
