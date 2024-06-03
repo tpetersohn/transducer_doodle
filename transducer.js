@@ -39,7 +39,7 @@ const concat      = (xs, x)     => xs.concat(x)
                       mapTf(toString),
                       tap(console.log, "before upperOdd"),
                       mapTf(upperOdd),
-                      tap(console.log, "before removeUpper"),
+                      tap(console.log, "before removeLower"),
                       filterTf(removeLower),
                       tap(console.log, "before fillEmpty"),
                       mapTf(fillEmpty),
