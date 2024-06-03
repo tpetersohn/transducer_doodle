@@ -35,13 +35,12 @@ const concat      = (xs, x)     => xs.concat(x)
 
                     (
 
-                      
                       tap(console.log, "before toString"),
                       mapTf(toString),
                       tap(console.log, "before upperOdd"),
                       mapTf(upperOdd),
                       tap(console.log, "before removeUpper"),
-                      filterTf(removeUpper),
+                      filterTf(removeLower),
                       tap(console.log, "before fillEmpty"),
                       mapTf(fillEmpty),
                       tap(console.log, "before shuffle"),
