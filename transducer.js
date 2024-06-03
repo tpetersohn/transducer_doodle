@@ -16,8 +16,8 @@ const concat      = (xs, x)     => xs.concat(x)
 
     , isOdd       = (x)         => x % 2 !== 0
     , isEven      = (x)         => x % 2 == 0
-    , upperEven   = (x)        => isEven(x.charCodeAt(0)) ? x.toUpperCase(x) : x
-    , upperOdd    = (x)        => isOdd(x.charCodeAt(0)) ? x.toUpperCase(x) : x
+    , upperEven   = (x)         => isEven(x.charCodeAt(0)) ? x.toUpperCase(x) : x
+    , upperOdd    = (x)         => isOdd(x.charCodeAt(0)) ? x.toUpperCase(x) : x
     , isString    = (x)         => typeof x === 'string' || x instanceof String
     , isNumber    = (x)         => typeof x === 'number' || x instanceof Number
     , removeLower = (x)         => /^[A-Z]$/.test(x)
