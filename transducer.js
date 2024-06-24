@@ -26,7 +26,7 @@ const concat      = (xs, x)     => xs.concat(x)
     , toString    = (x)         => isNumber(x) ? String(x) : x
 
 
-    , tap         = (fn, msg)   => (rf) => (acc, x)   => {fn((acc.concat(x)), msg); return rf(acc,x)}
+    , tap         = (fn, msg)   => (rf) => (acc, x)   => {fn(acc.concat(x), msg); return rf(acc,x)}
     , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : rf(acc, " ")
     , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc,fn(x))
     , applyTf     = (fn)        => (rf) => (acc, x)   => fn(rf(acc,x))
@@ -43,8 +43,8 @@ const concat      = (xs, x)     => xs.concat(x)
                       filterTf(removeLower),
                       tap(console.log, "before fillEmpty"),
                       mapTf(fillEmpty),
-                      tap(console.log, "before shuffle"),
-                      applyTf(shuffleArray),
+                      //tap(console.log, "before shuffle"),
+                      //applyTf(shuffleArray),
          
                     )
 
