@@ -35,17 +35,18 @@ const concat      = (xs, x)     => xs.concat(x)
 
                     (
 
-                      tap(console.log, "before toString"),
+                      tap(console.log, "init"),
                       mapTf(toString),
-                      tap(console.log, "before upperOdd"),
+                      tap(console.log, "after toString"),
                       mapTf(upperOdd),
-                      tap(console.log, "before removeLower"),
+                      tap(console.log, "after upperOdd"),
                       filterTf(removeLower),
-                      tap(console.log, "before fillEmpty"),
+                      tap(console.log, "after removeLower"),
                       mapTf(fillEmpty),
-                      tap(console.log, "before shuffle"),
+                      tap(console.log, "after fillEmpty"),
                       applyTf(shuffleArray),
-         
+                      tap(console.log, "after shuffle"),
+                    
                     )
 
     , transduce   = (xf, rf, init, xs) => xs.reduce(xf(rf), init)
