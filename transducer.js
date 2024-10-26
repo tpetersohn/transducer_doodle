@@ -6,10 +6,8 @@ const shuffleArray = (ar) => {
       const j = crypto.randomInt(0,i)
       {[arr[i], arr[j]] = [arr[j], arr[i]]}
     }
-
     return arr;
-  
-  };
+};
 
 const concat      = (xs, x)     => xs.concat(x)
     , compose     = (...fns)    => (x) => fns.reduceRight((x,f) => f(x), x)
@@ -25,30 +23,48 @@ const concat      = (xs, x)     => xs.concat(x)
     , fillEmpty   = (x)         => /^\s*$/.test(x) ? "ø" : x
     , toString    = (x)         => isNumber(x) ? String(x) : x
 
+    // Create objects to store intermediate results
+    , intermediateResults = {
 
-    , tap         = (fn, msg)   => (rf) => (acc, x)   => {fn(x, msg);  return rf(acc,x)}
+        init: [],
+        afterToString: [],
+        afterUpperOdd: [],
+        afterRemoveLower: [],
+        afterFillEmpty: [],
+        afterShuffle: []
+        
+      }
+
+    , tap         = (fn, stage) => (rf) => (acc, x)   => {fn(x, stage); return rf(acc,x)}
     , filterTf    = (p)         => (rf) => (acc, x)   => p(x) ? rf(acc, x) : rf(acc, " ")
     , mapTf       = (fn)        => (rf) => (acc, x)   => rf(acc,fn(x))
-    , applyTf     = (fn)        => (rf) => (acc, x)   => fn(rf(acc,x))
 
-    , xform       = compose
+    , xform       = compose(
 
-                    (
-
-                      tap(console.log, "init"),
+                      tap((x, stage) => intermediateResults[stage].push(x), "init"),
                       mapTf(toString),
-                      tap(console.log, "after toString"),
+                      tap((x, stage) => intermediateResults[stage].push(x), "afterToString"),
                       mapTf(upperOdd),
-                      tap(console.log, "after upperOdd"),
+                      tap((x, stage) => intermediateResults[stage].push(x), "afterUpperOdd"),
                       filterTf(removeLower),
-                      tap(console.log, "after removeLower"),
+                      tap((x, stage) => intermediateResults[stage].push(x), "afterRemoveLower"),
                       mapTf(fillEmpty),
-                      tap(console.log, "after fillEmpty"),
-                      applyTf(shuffleArray),
-                      tap(console.log, "after shuffle"),
-                    
+                      tap((x, stage) => intermediateResults[stage].push(x), "afterFillEmpty")
+
                     )
 
     , transduce   = (xf, rf, init, xs) => xs.reduce(xf(rf), init)
 
-console.log(transduce(xform,concat,[],Array.from({length:26}, (_,i) => String.fromCharCode(i + 97)).concat(Number(5) )))
+const result = transduce(xform, concat, [], Array.from({length:26}, (_,i) => String.fromCharCode(i + 97)).concat(Number(5)))
+
+// Shuffle the final result
+const shuffledResult = shuffleArray(result)
+intermediateResults.afterShuffle = shuffledResult
+
+// Output intermediate results
+console.log("init:", intermediateResults.init)
+console.log("after toString:", intermediateResults.afterToString)
+console.log("after upperOdd:", intermediateResults.afterUpperOdd)
+console.log("after removeLower:", intermediateResults.afterRemoveLower)
+console.log("after fillEmpty:", intermediateResults.afterFillEmpty)
+console.log("after shuffle:", intermediateResults.afterShuffle)
