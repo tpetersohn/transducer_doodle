@@ -3,7 +3,7 @@ import crypto from "node:crypto"
 const shuffleArray = (ar) => {
   let arr = ar.slice(0)
   for (let i = arr.length - 1; i > 0; i--) {
-      const j = crypto.randomInt(0,i)
+      const j = crypto.randomInt(0,ar.length)
       {[arr[i], arr[j]] = [arr[j], arr[i]]}
     }
     return arr;
